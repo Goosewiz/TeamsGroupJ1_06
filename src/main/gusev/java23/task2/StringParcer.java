@@ -8,15 +8,17 @@ import java.util.stream.Stream;
 
 public class StringParcer {
     public static String getNewString(String oldString) {
-        String newString = "";
+        StringBuilder newString = new StringBuilder();
         for (int i = 0; i < oldString.length(); i++) {
             String temp = oldString.substring(i, i+1);
             if (temp.matches("[a-zA-Zа-яА-Я]"))
-                newString = newString + temp;
+                newString.append(temp);
             else
-                newString = newString + " ";
+                newString.append(" ");
         }
-        String[] output = newString.split(" +");
+        String temp = new String(newString);
+        //String[] output = oldString.split("( +)|(,)|(\\()|(\\))|(;)|(!)|(-)|(\\.)");
+        String[] output = temp.split(" +");
         Stream<String> stringStream = Arrays.stream(output);
         String answer = stringStream.filter(i -> i.length()>2)
                 .map(i -> i.toUpperCase())
