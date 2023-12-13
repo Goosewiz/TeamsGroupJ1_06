@@ -39,14 +39,13 @@ public class DoubleStreamProcessor {
         return answer;
     }
     public static Double longestString(DoubleStream ds) {
-        double[] temp = ds.toArray();
-        if (temp.length == 0)
+        double[] array = ds.toArray();
+        if (array.length == 0)
             return null;
-        String[] answer = new String[temp.length];
-        for (int i = 0; i<temp.length; i++)
-            answer[i] = Double.toString(temp[i]);
-        Stream<String> stringStream = Arrays.stream(answer);
-        String result = stringStream.max(Comparator.comparingInt(String::length))
+        DoubleStream ds1 = Arrays.stream(array);
+        String result = ds1
+                .mapToObj(Double::toString)
+                .max(Comparator.comparingInt(String::length))
                 .get();
         return Double.parseDouble(result);
     }
